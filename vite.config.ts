@@ -26,5 +26,6 @@ export default defineConfig(async () => {
   return {
     plugins: [react()],
     server: { port: 5173 },
+    base: "/express-course/",
   };
 });
