@@ -1,9 +1,12 @@
 {
+  "homepage": "https://rachaouldbabaali.github.io/express-course/",
   "name": "educational-platform",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "node -r ./vite-crypto-polyfill.cjs ./node_modules/vite/bin/vite.js",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist",
     "build": "vite build",
     "preview": "vite preview"
   },
