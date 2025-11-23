@@ -147,7 +147,11 @@ export default function Sidebar() {
     <aside className="hidden md:block md:col-span-1 md:w-72">
       <nav className="sticky top-16">
         <div className="bg-white rounded-xl p-4 shadow-card h-[calc(100vh-4rem)] overflow-auto sidebar-scroll">
-          <Modal isOpen={modalOpen} title={modalTitle} onClose={() => setModalOpen(false)}>
+          <Modal
+            isOpen={modalOpen}
+            title={modalTitle}
+            onClose={() => setModalOpen(false)}
+          >
             {modalBody}
           </Modal>
           {/* Courses Section */}
