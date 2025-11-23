@@ -1,187 +1,218 @@
-export const gitCourse = {
+// filepath: src/data/gitCourse.ts
+import { CourseContent } from "../types/course";
+
+export const gitCourse: CourseContent = {
   slug: "git-and-github",
   title: "Git & GitHub",
   description:
-    "Learn version control with Git and collaborate using GitHub (branches, PRs, workflows).",
+    "Master version control with Git and collaborate effectively using GitHub. Learn branching, pull requests, and professional workflows.",
+  level: "Beginner",
+  duration: "2-3 hours",
+  prerequisites: [
+    "Basic computer skills",
+    "Familiarity with command line basics",
+  ],
+  skillsGained: [
+    "Version Control",
+    "Branch Management",
+    "Code Collaboration",
+    "Pull Requests",
+    "GitHub Workflows",
+  ],
+  totalModules: 3,
+  totalLessons: 8,
+  totalExercises: 4,
+  totalProjects: 1,
+  welcomeMessage: {
+    title: "Welcome to Git & GitHub Mastery",
+    description:
+      "Learn professional version control skills that every developer needs. From basic commits to advanced collaboration workflows.",
+  },
+  completionCertificate: true,
   sections: [
     {
-      id: "installations",
-      title: "Before we begin — Installations",
-      paragraphs: [
-        "We'll use Git and GitHub for version control and collaboration. You'll also need Node.js and npm to run examples and tooling.",
+      id: "getting-started",
+      title: "Getting Started with Git",
+      duration: "45 minutes",
+      objectives: [
+        "Understand version control concepts",
+        "Install and configure Git",
+        "Create your first repository",
+        "Make and track changes",
       ],
-      subsections: [
+      lessons: [
         {
-          id: "git",
-          title: "1) Install Git (and Git Bash on Windows)",
-          description: "Commands / steps per OS:",
-          steps: [
-            {
-              os: "Windows",
-              text: "Download and install Git for Windows from the official site — Git Bash is included.",
-            },
-            {
-              os: "macOS (Homebrew)",
-              code: "brew install git",
-            },
-            {
-              os: "Linux (Debian/Ubuntu)",
-              code: "sudo apt update && sudo apt install -y git",
-            },
+          id: "what-is-git",
+          title: "What is Git?",
+          type: "theory",
+          content: {
+            paragraphs: [
+              "Git is a distributed version control system that helps developers track changes in their codebase, collaborate with others, and maintain project history.",
+              "Unlike centralized version control systems, every developer has a complete copy of the repository with full history.",
+            ],
+            keyPoints: [
+              "Distributed version control system",
+              "Tracks changes to files over time",
+              "Enables collaboration and branching",
+              "Maintains complete project history",
+            ],
+          },
+        },
+        {
+          id: "install-setup",
+          title: "Installation & Setup",
+          type: "practical",
+          content: {
+            steps: [
+              {
+                text: "Install Git on your system:",
+                code: "# Windows: Download from git-scm.com\n# macOS: brew install git\n# Linux: sudo apt install git",
+              },
+              {
+                text: "Verify installation:",
+                code: "git --version",
+              },
+              {
+                text: "Configure your identity:",
+                code: 'git config --global user.name "Your Name"\ngit config --global user.email "your.email@example.com"',
+              },
+            ],
+          },
+        },
+      ],
+      exercises: [
+        {
+          id: "ex-git-1",
+          title: "First Repository",
+          description:
+            "Create your first Git repository and make initial commits",
+          task: "1. Create a new directory\n2. Initialize a Git repository\n3. Create a README.md file\n4. Make your first commit\n5. Check the commit history",
+          difficulty: "beginner",
+          estimatedTime: "15 minutes",
+          solution: `mkdir my-first-repo\ncd my-first-repo\ngit init\necho "# My Project" > README.md\ngit add .\ngit commit -m "Initial commit"\ngit log`,
+        },
+      ],
+    },
+    {
+      id: "basic-commands",
+      title: "Essential Git Commands",
+      duration: "1 hour",
+      objectives: [
+        "Master basic Git workflow",
+        "Understand staging and committing",
+        "Learn to view history and changes",
+        "Handle file modifications",
+      ],
+      lessons: [
+        {
+          id: "basic-workflow",
+          title: "Basic Git Workflow",
+          type: "theory",
+          content: {
+            paragraphs: [
+              "Git follows a simple three-stage workflow: working directory → staging area → repository. Understanding this flow is crucial for effective version control.",
+            ],
+            keyPoints: [
+              "Working directory: where you make changes",
+              "Staging area: where you prepare changes for commit",
+              "Repository: where committed changes are stored",
+            ],
+          },
+        },
+        {
+          id: "essential-commands",
+          title: "Essential Commands",
+          type: "example",
+          content: {
+            description: "Daily Git commands you'll use constantly",
+            code: `# Check status of files\ngit status\n\n# Add files to staging area\ngit add filename.txt\ngit add .  # all files\n\n# Commit changes\ngit commit -m "Descriptive commit message"\n\n# View history\ngit log\ngit log --oneline\n\n# See changes\ngit diff\ngit diff --staged`,
+          },
+        },
+      ],
+      exercises: [
+        {
+          id: "ex-git-2",
+          title: "Practice Workflow",
+          description:
+            "Practice the complete Git workflow with multiple changes",
+          task: "1. Create multiple files\n2. Make changes to files\n3. Stage specific files\n4. Commit changes with meaningful messages\n5. View your commit history",
+          difficulty: "beginner",
+          estimatedTime: "20 minutes",
+        },
+      ],
+      quiz: [
+        {
+          question: "What does 'git add' do?",
+          options: [
+            "Commits changes to repository",
+            "Adds files to staging area",
+            "Creates a new branch",
+            "Pushes changes to remote",
           ],
-          verify: "git --version",
-        },
-        {
-          id: "node",
-          title: "2) Install Node.js and npm",
-          description:
-            "Recommended: use nvm (Node Version Manager) so you can install LTS and switch versions easily.",
-          steps: [
-            {
-              text: "Install nvm (macOS / Linux):",
-              code: "curl -fsSL https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.4/install.sh | bash",
-            },
-            {
-              text: "Then install Node LTS:",
-              code: "nvm install --lts\nnvm use --lts",
-            },
-            {
-              text: "Windows: use the official Node installer from nodejs.org or use nvm-windows.",
-            },
-          ],
-          verify: "node -v\nnpm -v",
-        },
-        {
-          id: "identity",
-          title: "3) Set up Git identity",
-          description:
-            "Configure your name and email (these will appear in commits):",
-          code: 'git config --global user.name "Your Name"\ngit config --global user.email "you@example.com"',
-        },
-        {
-          id: "github",
-          title: "4) Create a GitHub account (if you don't have one)",
-          description:
-            "Sign up at github.com and optionally set up SSH keys (recommended):",
-          code: 'ssh-keygen -t ed25519 -C "you@example.com"\n# then add ~/.ssh/id_ed25519.pub to your GitHub account',
+          correct: 1,
+          explanation:
+            "git add moves changes from working directory to staging area, preparing them for commit.",
         },
       ],
     },
     {
-      id: "checklist",
-      title: "Quick start checklist",
-      items: [
-        "Git installed and `git --version` works",
-        "Node & npm installed and `node -v`, `npm -v` return versions",
-        "Git identity configured with `git config --global`",
-        "GitHub account ready and SSH key added (optional but recommended)",
+      id: "branching-workflows",
+      title: "Branching & Collaboration",
+      duration: "45 minutes",
+      objectives: [
+        "Understand branching strategies",
+        "Create and merge branches",
+        "Learn GitHub collaboration",
+        "Handle pull requests",
       ],
-    },
-    {
-      id: "cli-commands",
-      title: "Hands-on: Command line terminal",
-      paragraphs: [
-        "This section covers common command-line (shell) operations and the most-used Git commands. Open your terminal (Git Bash on Windows, Terminal on macOS/Linux) and try the examples below.",
-      ],
-      subsections: [
+      lessons: [
         {
-          id: "basic-shell",
-          title: "Basic shell commands",
-          description:
-            "Short definitions and examples for everyday file and directory operations.",
-          steps: [
-            {
-              text: "pwd — Print working directory (shows your current folder)",
-              code: "pwd",
-            },
-            {
-              text: "ls — List files (use -la to show hidden files and details)",
-              code: "ls -la",
-            },
-            {
-              text: "cd — Change directory (navigate into folders)",
-              code: "cd path/to/folder",
-            },
-            {
-              text: "mkdir — Create a new directory (folder)",
-              code: "mkdir my-folder",
-            },
-            {
-              text: "touch — Create an empty file or update timestamp",
-              code: "touch file.txt",
-            },
-            { text: "rm — Remove a file (careful)", code: "rm file.txt" },
-            {
-              text: "rm -r or rm -rf — Remove directories recursively (dangerous)",
-              code: "rm -rf my-folder",
-            },
-            {
-              text: "cat — Print file contents to the terminal",
-              code: "cat file.txt",
-            },
-            {
-              text: "echo — Print text or write into a file",
-              code: 'echo "hello" > file.txt',
-            },
-            {
-              text: "nano / vi — Simple terminal text editors (edit files)",
-              code: "nano file.txt",
-            },
-          ],
+          id: "git-branching",
+          title: "Git Branching",
+          type: "theory",
+          content: {
+            paragraphs: [
+              "Branching allows you to work on different features, fixes, or experiments independently without affecting the main codebase.",
+            ],
+          },
         },
         {
-          id: "git-commands",
-          title: "Common Git commands",
-          description:
-            "Essential Git commands you'll use every day while working with repositories.",
-          steps: [
-            {
-              text: "git init — Initialize a new Git repository in the current folder",
-              code: "git init",
-            },
-            {
-              text: "git status — Show changed files and staging area",
-              code: "git status",
-            },
-            {
-              text: "git add — Stage files for commit (use '.' to stage all)",
-              code: "git add .",
-            },
-            {
-              text: "git commit — Record staged changes with a message",
-              code: 'git commit -m "Initial commit"',
-            },
-            {
-              text: "git log — View commit history",
-              code: "git log --oneline --graph --all",
-            },
-            {
-              text: "git branch — List branches (use to create branches)",
-              code: "git branch",
-            },
-            {
-              text: "git checkout -b <name> — Create and switch to a new branch",
-              code: "git checkout -b feature-x",
-            },
-            {
-              text: "git merge — Merge another branch into the current branch",
-              code: "git merge main",
-            },
-            {
-              text: "git clone — Copy a remote repository locally",
-              code: "git clone git@github.com:username/repo.git",
-            },
-            {
-              text: "git pull — Fetch and merge changes from remote",
-              code: "git pull",
-            },
-            {
-              text: "git push — Push local commits to a remote repository",
-              code: "git push origin main",
-            },
-          ],
+          id: "github-collab",
+          title: "GitHub Collaboration",
+          type: "practical",
+          content: {
+            steps: [
+              {
+                text: "Create a GitHub repository:",
+                code: "# On GitHub.com, click New Repository",
+              },
+              {
+                text: "Connect local repo to GitHub:",
+                code: "git remote add origin https://github.com/username/repo.git\ngit push -u origin main",
+              },
+            ],
+          },
         },
       ],
+      finalProject: {
+        title: "Complete GitHub Workflow",
+        description:
+          "Implement a complete feature using Git and GitHub collaboration workflow",
+        requirements: [
+          "Create a new repository on GitHub",
+          "Clone repository locally",
+          "Create a feature branch",
+          "Make changes and commit",
+          "Push branch and create pull request",
+          "Merge pull request",
+        ],
+        learningOutcomes: [
+          "Full understanding of Git workflow",
+          "GitHub collaboration skills",
+          "Branch management",
+          "Code review process",
+        ],
+      },
     },
   ],
 };
