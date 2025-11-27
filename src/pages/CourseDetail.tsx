@@ -30,31 +30,83 @@ export default function CourseDetail() {
     courseContent = expressCourse as CourseContent;
 
   useEffect(() => {
-    // Load completed items from localStorage
+    // Prefer an explicit items list if saved (newer format)
+    const itemsKey = `progressItems-${slug}`;
+    const savedItems = localStorage.getItem(itemsKey);
+    if (savedItems) {
+      try {
+        const parsedItems = JSON.parse(savedItems);
+        if (Array.isArray(parsedItems)) {
+          setCompletedItems(new Set(parsedItems));
+          return;
+        }
+      } catch (e) {
+        console.warn("Failed to parse saved progress items:", e);
+      }
+    }
+
+    // Fallback: load from the legacy progress key which might be an array, an object map,
+    // or a module -> percent map. Be tolerant and normalize to completed lesson/exercise ids.
     const saved = localStorage.getItem(`progress-${slug}`);
     if (saved) {
       try {
         const parsed = JSON.parse(saved);
+        // If parsed is an array of item IDs
         if (Array.isArray(parsed)) {
           setCompletedItems(new Set(parsed));
-        } else if (parsed && typeof parsed === "object") {
-          // support legacy/object format (e.g., { itemId: true } or progress map)
-          const keys = Object.keys(parsed).filter((k) => {
-            const v = (parsed as any)[k];
-            // treat truthy or numeric >=100 as completed
-            return v === true || (typeof v === "number" && v >= 100);
-          });
-          setCompletedItems(new Set(keys));
-        } else {
-          // fallback for single value
-          setCompletedItems(new Set([String(parsed)]));
+          return;
         }
+
+        // If parsed is an object, it could be either { itemId: true } or { moduleId: percent }
+        if (parsed && typeof parsed === "object") {
+          const completedIds: string[] = [];
+
+          // If object values are booleans, take keys with truthy values as item ids
+          const values = Object.values(parsed);
+          const allNumbers = values.every((v) => typeof v === "number");
+          if (!allNumbers) {
+            // treat truthy keys as completed item ids
+            Object.keys(parsed).forEach((k) => {
+              const v = (parsed as any)[k];
+              if (v) completedIds.push(k);
+            });
+            setCompletedItems(new Set(completedIds));
+            return;
+          }
+
+          // At this point assume it's a module->percent map (numbers)
+          // Map 100% modules to their lesson/exercise ids when courseContent is available
+          if (courseContent) {
+            Object.keys(parsed).forEach((moduleId) => {
+              const percent = (parsed as any)[moduleId];
+              if (typeof percent === "number" && percent >= 100) {
+                const module = courseContent!.sections.find(
+                  (s) => s.id === moduleId
+                );
+                if (module) {
+                  (module.lessons || []).forEach((l) =>
+                    completedIds.push(l.id)
+                  );
+                  (module.exercises || []).forEach((e) =>
+                    completedIds.push(e.id)
+                  );
+                }
+              }
+            });
+            if (completedIds.length > 0)
+              setCompletedItems(new Set(completedIds));
+            return;
+          }
+        }
+
+        // fallback: treat as single value
+        setCompletedItems(new Set([String(parsed)]));
       } catch (e) {
         // If parse fails, ignore and leave empty set
         console.warn("Failed to parse saved progress:", e);
       }
     }
-  }, [slug]);
+  }, [slug, courseContent]);
 
   const toggleCompleted = (itemId: string) => {
     const newCompleted = new Set(completedItems);
@@ -67,6 +119,11 @@ export default function CourseDetail() {
     try {
       localStorage.setItem(
         `progress-${slug}`,
+        JSON.stringify([...newCompleted])
+      );
+      // Also persist explicit items list for compatibility
+      localStorage.setItem(
+        `progressItems-${slug}`,
         JSON.stringify([...newCompleted])
       );
     } catch (e) {

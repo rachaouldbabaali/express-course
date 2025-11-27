@@ -3,6 +3,7 @@ import { NavLink, useParams, useLocation, useNavigate } from "react-router-dom";
 import { courses } from "../data/courses";
 import { gitCourse } from "../data/gitCourse";
 import expressCourse from "../data/expressCourse";
+import { userProgressMap } from "../data/userProgress";
 import { CourseContent, Module } from "../types/course";
 import Modal from "./Modal";
 
@@ -11,24 +12,8 @@ export default function Sidebar() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  // Mock progress data - in real app, this would come from user data
-  const userProgress: Record<string, Record<string, number>> = {
-    "git-and-github": {
-      "getting-started": 100,
-      "basic-commands": 75,
-      "branching-workflows": 25,
-    },
-    "node-and-express": {
-      "module-1": 100,
-      "module-2": 80,
-      "module-3": 40,
-      "module-4": 20,
-      "module-5": 0,
-      "module-6": 0,
-      "module-7": 0,
-      "module-8": 0,
-    },
-  };
+  // use centralized user progress map (can be replaced with API/user store)
+  const userProgress = userProgressMap;
 
   // Get course content based on slug
   let courseContent: CourseContent | null = null;
@@ -38,10 +23,23 @@ export default function Sidebar() {
 
   const getProgressForModule = (moduleId: string) => {
     const current = slug ?? "";
+    // prefer stored progress in localStorage if present
+    const stored = getStoredProgressMap(current);
+    if (stored && typeof stored[moduleId] === "number") return stored[moduleId];
     return userProgress[current]?.[moduleId] || 0;
   };
 
   const getTotalCourseProgress = (courseSlug: string) => {
+    // prefer stored progress map
+    const stored = getStoredProgressMap(courseSlug);
+    if (stored) {
+      const values = Object.values(stored);
+      if (values.length === 0) return 0;
+      return Math.round(
+        values.reduce((sum, val) => sum + val, 0) / values.length
+      );
+    }
+
     const progress = userProgress[courseSlug];
     if (!progress) return 0;
 
@@ -52,6 +50,91 @@ export default function Sidebar() {
       values.reduce((sum, val) => sum + val, 0) / values.length
     );
   };
+
+  // Helper: read persisted progress from localStorage and normalize to module->percent map
+  function getStoredProgressMap(
+    courseSlug: string
+  ): Record<string, number> | null {
+    try {
+      const raw = localStorage.getItem(`progress-${courseSlug}`);
+      if (raw) {
+        const parsed = JSON.parse(raw);
+        // If the saved progress is an array (list of completed item ids), derive module map
+        if (Array.isArray(parsed)) {
+          const items: string[] = parsed;
+          // try to compute module percentages using course content when available
+          let content: any = null;
+          if (courseSlug === gitCourse.slug) content = gitCourse;
+          else if (courseSlug === expressCourse.slug) content = expressCourse;
+
+          if (content && content.sections) {
+            const map: Record<string, number> = {};
+            content.sections.forEach((module: any) => {
+              const total =
+                (module.lessons?.length || 0) + (module.exercises?.length || 0);
+              if (total === 0) {
+                map[module.id] = 0;
+                return;
+              }
+              let completed = 0;
+              (module.lessons || []).forEach((l: any) => {
+                if (items.includes(l.id)) completed++;
+              });
+              (module.exercises || []).forEach((e: any) => {
+                if (items.includes(e.id)) completed++;
+              });
+              map[module.id] = Math.round((completed / total) * 100);
+            });
+            return map;
+          }
+        }
+
+        if (parsed && typeof parsed === "object") {
+          // if values are numbers, assume module->percent map
+          const allNumbers = Object.values(parsed).every(
+            (v) => typeof v === "number"
+          );
+          if (allNumbers) return parsed as Record<string, number>;
+        }
+      }
+
+      // fallback: check for explicit completed item ids
+      const itemsRaw = localStorage.getItem(`progressItems-${courseSlug}`);
+      if (itemsRaw) {
+        const items = JSON.parse(itemsRaw);
+        if (Array.isArray(items)) {
+          // try to compute module percentages using course content when available
+          let content: any = null;
+          if (courseSlug === gitCourse.slug) content = gitCourse;
+          else if (courseSlug === expressCourse.slug) content = expressCourse;
+
+          if (content && content.sections) {
+            const map: Record<string, number> = {};
+            content.sections.forEach((module: any) => {
+              const total =
+                (module.lessons?.length || 0) + (module.exercises?.length || 0);
+              if (total === 0) {
+                map[module.id] = 0;
+                return;
+              }
+              let completed = 0;
+              (module.lessons || []).forEach((l: any) => {
+                if (items.includes(l.id)) completed++;
+              });
+              (module.exercises || []).forEach((e: any) => {
+                if (items.includes(e.id)) completed++;
+              });
+              map[module.id] = Math.round((completed / total) * 100);
+            });
+            return map;
+          }
+        }
+      }
+    } catch (e) {
+      console.warn("Failed to read stored progress", e);
+    }
+    return null;
+  }
 
   const getModuleIcon = (moduleIndex: number, progress: number) => {
     if (progress === 100) return "✅";
@@ -79,11 +162,74 @@ export default function Sidebar() {
           "No course selected",
           "No course selected to save progress."
         );
-      // Persist mock progress for the selected course
+
+      // Read the actual completed items that CourseDetail writes
+      // (either from progressItems or progress as array)
+      let completedItems: string[] = [];
+      const itemsRaw = localStorage.getItem(`progressItems-${slug}`);
+      if (itemsRaw) {
+        try {
+          const parsed = JSON.parse(itemsRaw);
+          if (Array.isArray(parsed)) completedItems = parsed;
+        } catch (e) {
+          // ignore
+        }
+      }
+
+      // If no items found, try reading from progress-<slug> as array
+      if (completedItems.length === 0) {
+        const progressRaw = localStorage.getItem(`progress-${slug}`);
+        if (progressRaw) {
+          try {
+            const parsed = JSON.parse(progressRaw);
+            if (Array.isArray(parsed)) completedItems = parsed;
+          } catch (e) {
+            // ignore
+          }
+        }
+      }
+
+      // Convert completed items to module->percent map for persistence
+      if (courseContent && completedItems.length > 0) {
+        const moduleProgressMap: Record<string, number> = {};
+        courseContent.sections.forEach((module) => {
+          const total =
+            (module.lessons?.length || 0) + (module.exercises?.length || 0);
+          if (total === 0) {
+            moduleProgressMap[module.id] = 0;
+            return;
+          }
+          let completed = 0;
+          (module.lessons || []).forEach((l) => {
+            if (completedItems.includes(l.id)) completed++;
+          });
+          (module.exercises || []).forEach((e) => {
+            if (completedItems.includes(e.id)) completed++;
+          });
+          moduleProgressMap[module.id] = Math.round((completed / total) * 100);
+        });
+        // Write the canonical module->percent map
+        localStorage.setItem(
+          `progress-${slug}`,
+          JSON.stringify(moduleProgressMap)
+        );
+      } else if (completedItems.length === 0) {
+        // If no completed items, write empty map for the course
+        const emptyMap: Record<string, number> = {};
+        if (courseContent) {
+          courseContent.sections.forEach((module) => {
+            emptyMap[module.id] = 0;
+          });
+        }
+        localStorage.setItem(`progress-${slug}`, JSON.stringify(emptyMap));
+      }
+
+      // Keep progressItems-<slug> in sync
       localStorage.setItem(
-        `progress-${slug}`,
-        JSON.stringify(userProgress[slug] ?? {})
+        `progressItems-${slug}`,
+        JSON.stringify(completedItems)
       );
+
       showModal("Progress saved", "Progress saved locally.");
     } catch (e) {
       console.error(e);
@@ -144,9 +290,9 @@ export default function Sidebar() {
   };
 
   return (
-    <aside className="hidden md:block md:col-span-1 md:w-72">
+    <aside className="hidden md:block md:col-span-1">
       <nav className="sticky top-16">
-        <div className="bg-white rounded-xl p-4 shadow-card h-[calc(100vh-4rem)] overflow-auto sidebar-scroll">
+        <div className="bg-white rounded-xl p-4 shadow-card h-[calc(100vh-4rem)] overflow-auto sidebar-scroll w-full">
           <Modal
             isOpen={modalOpen}
             title={modalTitle}
@@ -246,7 +392,7 @@ export default function Sidebar() {
                       >
                         <div className="flex items-start gap-3">
                           <div
-                            className={`w-8 h-8 rounded-lg flex items-center justify-center text-sm flex-shrink-0 ${
+                            className={`w-6 h-8 rounded-lg flex items-center justify-center text-sm flex-shrink-0 ${
                               progress === 100
                                 ? "bg-green-100 text-green-600"
                                 : progress > 0
@@ -263,7 +409,7 @@ export default function Sidebar() {
                             </div>
 
                             {/* Module metadata */}
-                            <div className="flex items-center gap-3 mt-1 text-xs text-slate-500">
+                            <div className="flex items-center gap-3 mt-1 text-xs text-slate-500 flex-wrap">
                               <span className="flex items-center gap-1">
                                 <span>⏱️</span>
                                 {module.duration}
@@ -275,7 +421,7 @@ export default function Sidebar() {
                               {module.exercises && (
                                 <span className="flex items-center gap-1">
                                   <span>💪</span>
-                                  {module.exercises.length}
+                                  {module.exercises.length} exercises
                                 </span>
                               )}
                             </div>
