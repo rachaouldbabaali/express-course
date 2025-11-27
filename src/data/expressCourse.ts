@@ -2,7 +2,8 @@
 export const expressCourse = {
   slug: "node-and-express",
   title: "Node & Express.js",
-  description: "Build backend services with Node.js and Express.js — create APIs, middleware and serve static files.",
+  description:
+    "Build backend services with Node.js and Express.js — create APIs, middleware and serve static files.",
   level: "Beginner",
   duration: "6-8 hours",
   prerequisites: ["Basic JavaScript knowledge", "Understanding of HTTP basics"],
@@ -14,7 +15,7 @@ export const expressCourse = {
       objectives: [
         "Understand Node.js runtime environment",
         "Set up development environment",
-        "Create first Node.js server"
+        "Create first Node.js server",
       ],
       lessons: [
         {
@@ -24,14 +25,14 @@ export const expressCourse = {
           content: {
             paragraphs: [
               "Node.js is a JavaScript runtime built on Chrome's V8 JavaScript engine that allows you to run JavaScript on the server.",
-              "Key features: Event-driven, non-blocking I/O model, perfect for data-intensive real-time applications."
+              "Key features: Event-driven, non-blocking I/O model, perfect for data-intensive real-time applications.",
             ],
             keyPoints: [
               "Uses Google's V8 JavaScript engine",
               "Single-threaded with event loop",
-              "Perfect for I/O-heavy applications"
-            ]
-          }
+              "Perfect for I/O-heavy applications",
+            ],
+          },
         },
         {
           id: "setup-environment",
@@ -41,25 +42,26 @@ export const expressCourse = {
             steps: [
               {
                 text: "Verify Node.js installation:",
-                code: "node --version\nnpm --version"
+                code: "node --version\nnpm --version",
               },
               {
                 text: "Create project directory:",
-                code: "mkdir my-first-app\ncd my-first-app"
+                code: "mkdir my-first-app\ncd my-first-app",
               },
               {
                 text: "Initialize npm project:",
-                code: "npm init -y"
-              }
-            ]
-          }
+                code: "npm init -y",
+              },
+            ],
+          },
         },
         {
           id: "first-server",
           title: "First HTTP Server",
           type: "example",
           content: {
-            description: "Create a basic HTTP server using Node.js built-in http module",
+            description:
+              "Create a basic HTTP server using Node.js built-in http module",
             code: `const http = require('http');
 
 const server = http.createServer((req, res) => {
@@ -69,15 +71,16 @@ const server = http.createServer((req, res) => {
 
 server.listen(3000, () => {
   console.log('Server running at http://localhost:3000/');
-});`
-          }
-        }
+});`,
+          },
+        },
       ],
       exercises: [
         {
           id: "ex-1-1",
           title: "Simple Server Modification",
-          description: "Modify the server to return different responses based on the URL",
+          description:
+            "Modify the server to return different responses based on the URL",
           task: "Create a server that returns:\n- 'Home Page' for '/'\n- 'About Page' for '/about'\n- '404 Not Found' for other routes",
           hint: "Check req.url property",
           solution: `const http = require('http');
@@ -97,8 +100,8 @@ const server = http.createServer((req, res) => {
 
 server.listen(3000, () => {
   console.log('Server running at http://localhost:3000/');
-});`
-        }
+});`,
+        },
       ],
       quiz: [
         {
@@ -107,11 +110,11 @@ server.listen(3000, () => {
             "A JavaScript framework for frontend development",
             "A runtime environment for executing JavaScript on the server",
             "A database management system",
-            "A CSS preprocessor"
+            "A CSS preprocessor",
           ],
-          correct: 1
-        }
-      ]
+          correct: 1,
+        },
+      ],
     },
 
     {
@@ -121,7 +124,7 @@ server.listen(3000, () => {
       objectives: [
         "Understand Express.js framework",
         "Create basic Express application",
-        "Handle different HTTP methods"
+        "Handle different HTTP methods",
       ],
       lessons: [
         {
@@ -131,9 +134,9 @@ server.listen(3000, () => {
           content: {
             paragraphs: [
               "Express.js is a minimal and flexible Node.js web application framework that provides a robust set of features for web and mobile applications.",
-              "It simplifies the process of building web applications by providing utilities for routing, middleware, template engines, and more."
-            ]
-          }
+              "It simplifies the process of building web applications by providing utilities for routing, middleware, template engines, and more.",
+            ],
+          },
         },
         {
           id: "basic-express-app",
@@ -144,8 +147,8 @@ server.listen(3000, () => {
             steps: [
               {
                 text: "Install Express:",
-                code: "npm install express"
-              }
+                code: "npm install express",
+              },
             ],
             code: `const express = require('express');
 const app = express();
@@ -157,15 +160,16 @@ app.get('/', (req, res) => {
 
 app.listen(port, () => {
   console.log(\`Server running at http://localhost:\${port}\`);
-});`
-          }
+});`,
+          },
         },
         {
           id: "http-methods",
           title: "Handling HTTP Methods",
           type: "example",
           content: {
-            description: "Handle different HTTP methods (GET, POST, PUT, DELETE)",
+            description:
+              "Handle different HTTP methods (GET, POST, PUT, DELETE)",
             code: `app.get('/users', (req, res) => {
   res.send('GET: List all users');
 });
@@ -180,15 +184,16 @@ app.put('/users/:id', (req, res) => {
 
 app.delete('/users/:id', (req, res) => {
   res.send(\`DELETE: Delete user \${req.params.id}\`);
-});`
-          }
-        }
+});`,
+          },
+        },
       ],
       exercises: [
         {
           id: "ex-2-1",
           title: "RESTful Bookstore API",
-          description: "Create a simple bookstore API with basic CRUD operations",
+          description:
+            "Create a simple bookstore API with basic CRUD operations",
           task: `Implement these endpoints:
 GET /books - return list of books
 POST /books - add a new book
@@ -235,137 +240,985 @@ app.delete('/books/:id', (req, res) => {
   if (index === -1) return res.status(404).json({ error: 'Book not found' });
   books.splice(index, 1);
   res.status(204).send();
-});`
-        }
-      ]
+});`,
+        },
+      ],
+    },
+
+    {
+      id: "module-2-5",
+      title: "Module 2.5: Bookstore App Setup & Project Structure (ES modules)",
+      duration: "45 minutes",
+      objectives: [
+        "Create a project scaffold for a small ecommerce/bookstore API",
+        'Use ES modules (type: "module") in package.json',
+        "Wire up app.js, server.js, routes and simple controllers with mock data",
+      ],
+      lessons: [
+        {
+          id: "bookstore-setup",
+          title: "Step-by-step: Scaffold bookstore Express app (type: module)",
+          type: "practical",
+          content: {
+            description:
+              'Follow these steps to create a small bookstore API using ES modules (package.json: type = "module"). Each step shows which files to create and minimal example content.',
+            code: `ecommerce-api/
+├── package.json
+├── server.js
+└── src/
+    ├── app.js
+    ├── controllers/
+    │   ├── productController.js
+    │   └── categoryController.js
+    ├── routes/
+    │   ├── productRoutes.js
+    │   ├── categoryRoutes.js
+    │   └── index.js
+    └── data/
+        └── mockData.js`,
+            steps: [
+              {
+                text: "1) Init project and set ES module type",
+                code: 'npm init -y\n// open package.json and add: "type": "module"',
+              },
+              {
+                text: "2) Install Express",
+                code: "npm install express",
+              },
+              {
+                text: "2.1) Install nodemon for development (optional but recommended)",
+                code: "npm install --save-dev nodemon",
+              },
+              {
+                text: "3) Create src/app.js — export configured Express app",
+                code: `// src/app.js
+import express from 'express';
+import routes from './routes/index.js';
+
+const app = express();
+app.use(express.json());
+app.use('/api', routes);
+
+export default app;`,
+              },
+              {
+                text: "4) Create server.js — import app and start server",
+                code: `// server.js
+import app from './src/app.js';
+
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(\`Server running at http://localhost:\${PORT}\`);
+});`,
+              },
+              {
+                text: "5) Create mock data",
+                code: `// src/data/mockData.js
+export const products = [
+  { id: 1, title: 'Clean Code', author: 'Robert C. Martin', price: 29.99 },
+  { id: 2, title: 'You Don\\'t Know JS', author: 'Kyle Simpson', price: 24.99 }
+];
+
+export const categories = [
+  { id: 1, name: 'Programming' },
+  { id: 2, name: 'Databases' }
+];`,
+              },
+              {
+                text: "6) Create simple controllers",
+                code: `// src/controllers/productController.js
+import { products } from '../data/mockData.js';
+
+export const listProducts = (req, res) => {
+  res.json(products);
+};
+
+export const getProduct = (req, res) => {
+  const p = products.find(p => p.id === parseInt(req.params.id));
+  if (!p) return res.status(404).json({ error: 'Product not found' });
+  res.json(p);
+};`,
+              },
+              {
+                text: "7) Create routes and index router",
+                code: `// src/routes/productRoutes.js
+import express from 'express';
+import { listProducts, getProduct } from '../controllers/productController.js';
+
+const router = express.Router();
+router.get('/', listProducts);
+router.get('/:id', getProduct);
+export default router;
+
+// src/routes/index.js
+import express from 'express';
+import productRoutes from './productRoutes.js';
+
+const router = express.Router();
+router.use('/products', productRoutes);
+export default router;`,
+              },
+              {
+                text: "8) Start server npm run dev or npm start",
+                code: `// To start server:
+// Suggested package.json scripts (add to package.json)
+// "scripts": {
+//   "start": "node server.js",
+//   "dev": "nodemon server.js"
+// }
+ npm run dev // for development with nodemon  or npm start // for production`,
+              },
+              {
+                text: "Notes",
+                code: '- Use imports/exports because package.json has "type": "module"\n- Keep controllers small and return mock data initially\n- Later replace mockData with database calls',
+              },
+            ],
+          },
+        },
+      ],
+      exercises: [
+        {
+          id: "ex-2-5-1",
+          title: "Scaffold the Bookstore App",
+          description:
+            "Create the project scaffold above, run the server and verify GET /api/products returns mock data.",
+          task: "Follow the steps in the lesson, create files, run node server.js and verify endpoint.",
+        },
+      ],
     },
 
     {
       id: "module-3",
       title: "Module 3: Middleware & Request Processing",
-      duration: "1 hour 15 minutes",
+      duration: "2 hours",
       objectives: [
-        "Understand Express middleware concept",
-        "Create custom middleware",
-        "Use built-in and third-party middleware"
+        "Understand Express middleware concept with real-world analogies",
+        "Master the request-response cycle and middleware execution order",
+        "Create custom middleware for various use cases",
+        "Use built-in and third-party middleware effectively",
       ],
       lessons: [
         {
           id: "middleware-concept",
-          title: "What is Middleware?",
+          title: "What is Middleware? The Car Assembly Line Analogy",
           type: "theory",
           content: {
             paragraphs: [
-              "Middleware functions are functions that have access to the request object (req), the response object (res), and the next function in the application's request-response cycle.",
-              "Middleware can execute any code, make changes to the request and response objects, end the request-response cycle, or call the next middleware."
+              "Imagine Express as a car assembly line. A request is like a chassis (car frame) moving down the line. Each station is a middleware function that can inspect, modify, or stop the chassis. The final station (your route handler) completes the car and sends it back as a response.",
+              "Middleware functions are functions that have access to the request object (req), the response object (res), and the next function in the application's request-response cycle. They form a chain where each middleware can execute code, modify the request/response, or end the cycle.",
             ],
             keyPoints: [
-              "Executes in the order they are defined",
-              "Can modify req and res objects",
-              "Must call next() to pass control to next middleware"
-            ]
-          }
+              "Each middleware is a station on the assembly line",
+              "Middleware executes in the ORDER they are defined",
+              "Three actions: Inspect/Modify (like req.body), Stop the Line (send response), or Pass to Next (call next())",
+              "If you don't call next(), the request hangs forever",
+              "The route handler is the final middleware that sends the response",
+            ],
+            analogy: {
+              title: "The Assembly Line Metaphor",
+              description: "Understand middleware through a real-world analogy",
+              stages: [
+                {
+                  stage: "The Chassis Arrives",
+                  middleware: "Request comes in",
+                  action: "Initial chassis enters the line",
+                },
+                {
+                  stage: "Station 1: Inspection",
+                  middleware:
+                    "app.use((req, res, next) => { console.log(req.url); next(); })",
+                  action:
+                    "Worker inspects the chassis (logs request details) and sends it to the next station",
+                },
+                {
+                  stage: "Station 2: Body Assembly",
+                  middleware: "express.json() - Built-in middleware",
+                  action:
+                    "Worker assembles the body (parses JSON) and passes it along",
+                },
+                {
+                  stage: "Station 3: Quality Check",
+                  middleware: "Authentication middleware",
+                  action:
+                    "Worker checks if chassis meets standards. If not, STOP (reject). Otherwise, continue",
+                },
+                {
+                  stage: "Final Station: Installation",
+                  middleware: "app.get('/', (req, res) => { res.send(...) })",
+                  action:
+                    "Final worker installs engine and seats (business logic) and sends finished car (response)",
+                },
+              ],
+            },
+            visualFlow: `
+Request In
+    |
+    V
+Middleware 1 (Logger) -----> Inspect request, call next()
+    |
+    V
+Middleware 2 (JSON Parser) -> Parse body, call next()
+    |
+    V
+Middleware 3 (Auth Check) --> Verify user, call next() or STOP
+    |
+    V
+Route Handler (Final Station) -> Process & SEND RESPONSE
+    |
+    V
+Response Out to Client
+        `,
+          },
         },
         {
-          id: "custom-middleware",
-          title: "Creating Custom Middleware",
+          id: "three-actions",
+          title: "The Three Actions of Middleware",
           type: "example",
           content: {
-            description: "Create logging and authentication middleware",
-            code: `// Logging middleware
+            description: "Understanding what middleware can do",
+            paragraphs: [
+              "Middleware can inspect/modify requests, stop the request cycle, or pass control to the next middleware. Full code examples are available in the subsections below.",
+            ],
+            code: `// See subsections for three detailed examples: Inspect/Modify, Stop the Line, Pass Control`,
+            subsections: [
+              {
+                title:
+                  "Action 1: Inspect & Modify (The Assembly Worker Inspects)",
+                description:
+                  "Check or modify the request/response without stopping",
+                code: `// Logging middleware - inspects the request
 app.use((req, res, next) => {
-  console.log(\`\${new Date().toISOString()} - \${req.method} \${req.url}\`);
-  next();
+  console.log(\`Request: \${req.method} \${req.url}\`);
+  console.log(\`Headers: \${JSON.stringify(req.headers)}\`);
+  
+  // Add custom data to the request object
+  req.startTime = Date.now();
+  req.customData = 'some value';
+  
+  next(); // Pass to the next middleware
 });
 
-// Authentication middleware (simplified)
+// Use the added data in route handler
+app.get('/', (req, res) => {
+  console.log(\`Route took \${Date.now() - req.startTime}ms\`);
+  res.send('Hello');
+});`,
+              },
+              {
+                title: "Action 2: Stop the Line (The Assembly Worker Rejects)",
+                description: "End the request immediately with a response",
+                code: `// Authentication middleware - STOPS if user not logged in
 const requireAuth = (req, res, next) => {
   const token = req.headers.authorization;
+  
   if (token === 'secret-token') {
-    next();
+    next(); // User is valid, continue
   } else {
+    // STOP HERE - don't call next()
     res.status(401).json({ error: 'Unauthorized' });
   }
 };
 
 // Using the middleware
 app.get('/protected', requireAuth, (req, res) => {
-  res.json({ message: 'This is protected data' });
-});`
-          }
+  res.json({ message: 'This data is only for authenticated users' });
+});`,
+              },
+              {
+                title: "Action 3: Pass Control (The Assembly Worker Continues)",
+                description:
+                  "Call next() to pass control to the next middleware",
+                code: `// Middleware that always passes to next
+app.use((req, res, next) => {
+  console.log('Middleware 1: Doing something...');
+  // Do some work here
+  next(); // Pass to next middleware/route
+});
+
+app.use((req, res, next) => {
+  console.log('Middleware 2: Doing something else...');
+  next(); // Pass to next middleware/route
+});
+
+app.get('/', (req, res) => {
+  console.log('Route handler: Final stop');
+  res.send('Response');
+});
+
+// Order of execution:
+// 1. Middleware 1 logs and calls next()
+// 2. Middleware 2 logs and calls next()
+// 3. Route handler runs and sends response`,
+              },
+            ],
+          },
+        },
+        {
+          id: "custom-middleware",
+          title: "Creating Custom Middleware",
+          type: "example",
+          content: {
+            description: "Build practical middleware from scratch",
+            paragraphs: [
+              "Practical middleware patterns: logging, response-timing, auth, role checks and validation. Full examples follow in the examples array.",
+            ],
+            code: `// See examples array for concrete middleware implementations (logger, response-time, auth, admin check, validation)`,
+            examples: [
+              {
+                title: "Request Logger with Timestamps",
+                code: `// Simple request logger
+app.use((req, res, next) => {
+  const timestamp = new Date().toISOString();
+  console.log(\`[\${timestamp}] \${req.method} \${req.url}\`);
+  next();
+});`,
+              },
+              {
+                title: "Response Time Tracker",
+                code: `// Middleware that tracks how long each request takes
+app.use((req, res, next) => {
+  const startTime = Date.now();
+  
+  // Hook into the 'finish' event to see when response is sent
+  res.on('finish', () => {
+    const duration = Date.now() - startTime;
+    console.log(\`Request to \${req.url} took \${duration}ms\`);
+  });
+  
+  next();
+});`,
+              },
+              {
+                title: "Authentication Middleware",
+                code: `// Check if user is authenticated
+const requireAuth = (req, res, next) => {
+  const token = req.headers.authorization?.replace('Bearer ', '');
+  
+  if (!token) {
+    return res.status(401).json({ error: 'No token provided' });
+  }
+  
+  if (token === 'valid-token') {
+    req.user = { id: 1, name: 'John Doe' };
+    next();
+  } else {
+    res.status(401).json({ error: 'Invalid token' });
+  }
+};
+
+// Use it on specific routes
+app.get('/protected', requireAuth, (req, res) => {
+  res.json({ message: \`Hello \${req.user.name}\` });
+});`,
+              },
+              {
+                title: "Admin Role Check Middleware",
+                code: `// Check if user has admin role
+const requireAdmin = (req, res, next) => {
+  if (!req.user) {
+    return res.status(401).json({ error: 'Not authenticated' });
+  }
+  
+  if (req.user.role === 'admin') {
+    next();
+  } else {
+    res.status(403).json({ error: 'Admin access required' });
+  }
+};
+
+// Chain multiple middlewares
+app.delete('/users/:id', requireAuth, requireAdmin, (req, res) => {
+  res.json({ message: \`Deleted user \${req.params.id}\` });
+});`,
+              },
+              {
+                title: "Request Body Validation",
+                code: `// Validate that required fields are in the request body
+const validateUserData = (req, res, next) => {
+  const { name, email } = req.body;
+  
+  if (!name || !email) {
+    return res.status(400).json({ 
+      error: 'Missing required fields: name and email' 
+    });
+  }
+  
+  if (!email.includes('@')) {
+    return res.status(400).json({ 
+      error: 'Invalid email format' 
+    });
+  }
+  
+  next();
+};
+
+app.post('/users', validateUserData, (req, res) => {
+  res.json({ message: 'User created successfully' });
+});`,
+              },
+            ],
+          },
         },
         {
           id: "builtin-middleware",
           title: "Built-in Middleware",
           type: "example",
           content: {
-            description: "Using Express built-in middleware",
-            code: `// Parse JSON bodies
+            description: "Using Express built-in middleware for common tasks",
+            paragraphs: [
+              "Express provides built-in middleware for common tasks such as JSON/body parsing, urlencoded parsing, and serving static files. See code examples below.",
+            ],
+            code: `// See examples array for usage of express.json(), express.urlencoded(), and express.static()`,
+            examples: [
+              {
+                title: "JSON Parser - Parse incoming JSON requests",
+                code: `// Without express.json(), req.body would be undefined
 app.use(express.json());
 
-// Parse URL-encoded bodies
+app.post('/api/users', (req, res) => {
+  console.log(req.body); // Now contains parsed JSON data
+  res.json({ received: req.body });
+});`,
+              },
+              {
+                title: "URL-Encoded Parser - Parse form data",
+                code: `// Parse form submissions (application/x-www-form-urlencoded)
 app.use(express.urlencoded({ extended: true }));
 
-// Serve static files
+app.post('/form', (req, res) => {
+  // req.body contains form data
+  res.send(\`Received form data: \${JSON.stringify(req.body)}\`);
+});`,
+              },
+              {
+                title: "Static Files - Serve CSS, images, etc.",
+                code: `// Serve files from the 'public' folder
 app.use(express.static('public'));
 
-// Example of using multiple middleware
+// Now http://localhost:3000/style.css serves public/style.css
+// http://localhost:3000/logo.png serves public/logo.png`,
+              },
+              {
+                title: "Combining Built-in Middleware",
+                code: `const express = require('express');
+const app = express();
+
+// Order matters! Parse before using
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
-app.use(requireAuth); // Our custom middleware`
-          }
-        }
+
+// Your custom middleware here
+app.use((req, res, next) => {
+  console.log('Processing request...');
+  next();
+});
+
+// Routes here
+app.post('/api/data', (req, res) => {
+  res.json(req.body);
+});`,
+              },
+            ],
+          },
+        },
+        {
+          id: "middleware-order",
+          title: "Middleware Execution Order - CRITICAL",
+          type: "example",
+          content: {
+            description: "Why the order of middleware matters",
+            warning: "The order in which you define middleware is crucial!",
+            code: `// WRONG ORDER - This will NOT work
+app.get('/users', (req, res) => {
+  res.json(users);
+});
+
+app.use(express.json()); // DEFINED AFTER the route!
+
+// CORRECT ORDER
+app.use(express.json()); // Parse JSON FIRST
+
+app.get('/users', (req, res) => {
+  // Now we can use req.body if someone POSTs to /users
+  res.json(users);
+});
+
+// EXECUTION ORDER EXAMPLE
+app.use((req, res, next) => {
+  console.log('1. First middleware');
+  next();
+});
+
+app.use((req, res, next) => {
+  console.log('2. Second middleware');
+  next();
+});
+
+app.get('/', (req, res) => {
+  console.log('3. Route handler');
+  res.send('Done');
+});
+
+// Output when GET /:
+// 1. First middleware
+// 2. Second middleware
+// 3. Route handler`,
+          },
+        },
+        {
+          id: "error-handling",
+          title: "Error Handling Middleware",
+          type: "example",
+          content: {
+            description: "Handle errors across your entire application",
+            keyPoints: [
+              "Error-handling middleware has 4 parameters: (err, req, res, next)",
+              "Must be defined LAST, after all other routes and middleware",
+              "Pass errors to it by calling next(error)",
+            ],
+            code: `// Route that might have an error
+app.get('/divide/:a/:b', (req, res, next) => {
+  const a = parseInt(req.params.a);
+  const b = parseInt(req.params.b);
+  
+  if (b === 0) {
+    const error = new Error('Cannot divide by zero');
+    error.status = 400;
+    return next(error); // Pass error to error handler
+  }
+  
+  res.json({ result: a / b });
+});
+
+// ERROR HANDLING MIDDLEWARE (must be last!)
+app.use((err, req, res, next) => {
+  const status = err.status || 500;
+  const message = err.message || 'Internal Server Error';
+  
+  console.error('Error:', message);
+  
+  res.status(status).json({
+    error: {
+      message: message,
+      status: status
+    }
+  });
+});`,
+          },
+        },
       ],
       exercises: [
         {
           id: "ex-3-1",
           title: "Request Logger Middleware",
           description: "Create a detailed request logger",
+          difficulty: "Beginner",
           task: `Create middleware that logs:
-- Timestamp
+- Timestamp (ISO format)
 - HTTP method
-- URL
+- URL path
 - User-Agent header
-- Response time
+- Response time (in milliseconds)
 
-Format: "2023-10-01T10:00:00.000Z - GET /api/users - Chrome - 15ms"`,
+Format: "2023-10-01T10:00:00.000Z - GET /api/users - Chrome/120 - 15ms"`,
+          hint: "Use res.on('finish') to track when the response is sent",
           solution: `app.use((req, res, next) => {
   const start = Date.now();
   
   res.on('finish', () => {
     const duration = Date.now() - start;
     const userAgent = req.get('User-Agent') || 'Unknown';
-    console.log(\`\${new Date().toISOString()} - \${req.method} \${req.url} - \${userAgent} - \${duration}ms\`);
+    const timestamp = new Date().toISOString();
+    
+    console.log(
+      \`\${timestamp} - \${req.method} \${req.url} - \${userAgent} - \${duration}ms\`
+    );
   });
   
   next();
-});`
+});`,
         },
         {
           id: "ex-3-2",
           title: "Error Handling Middleware",
           description: "Create global error handling middleware",
-          task: "Create error handling middleware that catches all errors and returns consistent error responses",
-          solution: `// Error handling middleware (must be last)
+          difficulty: "Intermediate",
+          task: `Create error handling middleware that:
+1. Catches all errors thrown or passed via next(error)
+2. Returns consistent JSON error responses
+3. Includes different handling for validation vs generic errors
+4. Shows detailed errors in development, generic in production
+5. Logs all errors to console`,
+          hint: "Error middleware has 4 parameters: (err, req, res, next). Check process.env.NODE_ENV",
+          solution: `// Error handling middleware (must be LAST)
 app.use((err, req, res, next) => {
-  console.error(err.stack);
+  console.error('ERROR:', err.message);
+  console.error('Stack:', err.stack);
   
-  // Check if it's a validation error
+  let status = err.status || err.statusCode || 500;
+  let message = err.message || 'Internal Server Error';
+  
+  // Handle validation errors specifically
   if (err.name === 'ValidationError') {
-    return res.status(400).json({
-      error: 'Validation Error',
-      details: err.message
+    status = 400;
+    message = 'Validation Error';
+  }
+  
+  // Different response for production vs development
+  const response = {
+    error: {
+      message: message,
+      status: status
+    }
+  };
+  
+  // In development, include full error details
+  if (process.env.NODE_ENV === 'development') {
+    response.error.details = err.stack;
+  }
+  
+  res.status(status).json(response);
+});`,
+        },
+        {
+          id: "ex-3-3",
+          title: "Authentication Middleware",
+          description: "Create a token-based authentication middleware",
+          difficulty: "Intermediate",
+          task: `Create authentication middleware that:
+1. Checks for Authorization header with Bearer token
+2. Validates the token (accept 'valid-token' for now)
+3. Attaches user data to req.user if valid
+4. Returns 401 error if missing or invalid token
+5. Can be applied to specific routes only`,
+          hint: "Check req.headers.authorization. Use .replace('Bearer ', '') to extract token",
+          solution: `const authenticate = (req, res, next) => {
+  const authHeader = req.headers.authorization;
+  
+  if (!authHeader) {
+    return res.status(401).json({ error: 'Missing authorization header' });
+  }
+  
+  const token = authHeader.replace('Bearer ', '');
+  
+  if (token === 'valid-token') {
+    // Attach user to request
+    req.user = {
+      id: 1,
+      name: 'John Doe',
+      email: 'john@example.com'
+    };
+    next();
+  } else {
+    return res.status(401).json({ error: 'Invalid token' });
+  }
+};
+
+// Apply to specific route
+app.get('/profile', authenticate, (req, res) => {
+  res.json({ user: req.user });
+});
+
+// Test with: curl -H "Authorization: Bearer valid-token" http://localhost:3000/profile`,
+        },
+        {
+          id: "ex-3-4",
+          title: "Request Validation Middleware",
+          description: "Create reusable validation middleware",
+          difficulty: "Intermediate",
+          task: `Create a middleware factory that validates request bodies:
+1. Check for required fields
+2. Validate email format
+3. Check numeric ranges
+4. Ensure correct data types
+5. Return helpful error messages
+
+Create separate validators for different routes (user, product, etc.)`,
+          hint: "Create a function that returns middleware",
+          solution: `// Middleware factory for validating user data
+const validateUserInput = (req, res, next) => {
+  const { name, email, age } = req.body;
+  const errors = [];
+  
+  // Check required fields
+  if (!name) errors.push('Name is required');
+  if (!email) errors.push('Email is required');
+  
+  // Validate email format
+  if (email && !email.includes('@')) {
+    errors.push('Invalid email format');
+  }
+  
+  // Validate age range
+  if (age !== undefined) {
+    if (typeof age !== 'number') errors.push('Age must be a number');
+    if (age < 0 || age > 150) errors.push('Age must be between 0 and 150');
+  }
+  
+  if (errors.length > 0) {
+    return res.status(400).json({ 
+      error: 'Validation failed',
+      details: errors 
     });
   }
   
-  // Default error
+  next();
+};
+
+// Reusable validator factory
+const createValidator = (rules) => {
+  return (req, res, next) => {
+    const errors = [];
+    
+    Object.keys(rules).forEach(field => {
+      const rule = rules[field];
+      const value = req.body[field];
+      
+      if (rule.required && !value) {
+        errors.push(\`\${field} is required\`);
+      }
+      
+      if (rule.type && value && typeof value !== rule.type) {
+        errors.push(\`\${field} must be a \${rule.type}\`);
+      }
+      
+      if (rule.min !== undefined && value < rule.min) {
+        errors.push(\`\${field} must be at least \${rule.min}\`);
+      }
+      
+      if (rule.max !== undefined && value > rule.max) {
+        errors.push(\`\${field} must be no more than \${rule.max}\`);
+      }
+    });
+    
+    if (errors.length > 0) {
+      return res.status(400).json({ errors });
+    }
+    
+    next();
+  };
+};
+
+// Usage:
+const userValidator = createValidator({
+  name: { required: true, type: 'string' },
+  email: { required: true, type: 'string' },
+  age: { type: 'number', min: 0, max: 150 }
+});
+
+app.post('/users', userValidator, (req, res) => {
+  res.json({ message: 'User created', user: req.body });
+});`,
+        },
+        {
+          id: "ex-3-5",
+          title: "Rate Limiting Middleware",
+          description: "Prevent API abuse with rate limiting",
+          difficulty: "Advanced",
+          task: `Create a simple rate limiting middleware that:
+1. Limits requests per IP address
+2. Allows X requests per Y minutes
+3. Returns 429 status when limit exceeded
+4. Includes retry-after header
+5. Displays remaining requests in response header`,
+          hint: "Use a Map to store request counts per IP. Store { count, resetTime }",
+          solution: `const createRateLimiter = (maxRequests = 5, windowMs = 60000) => {
+  const requestMap = new Map();
+  
+  return (req, res, next) => {
+    const ip = req.ip || req.connection.remoteAddress;
+    const now = Date.now();
+    
+    // Get or create rate limit entry
+    let rateLimitData = requestMap.get(ip);
+    
+    if (!rateLimitData || now > rateLimitData.resetTime) {
+      // Window expired or first request
+      rateLimitData = {
+        count: 1,
+        resetTime: now + windowMs
+      };
+    } else {
+      // Within current window
+      rateLimitData.count++;
+    }
+    
+    requestMap.set(ip, rateLimitData);
+    
+    const remaining = Math.max(0, maxRequests - rateLimitData.count);
+    const resetAfter = Math.ceil((rateLimitData.resetTime - now) / 1000);
+    
+    // Set headers
+    res.set('X-RateLimit-Limit', maxRequests);
+    res.set('X-RateLimit-Remaining', remaining);
+    res.set('X-RateLimit-Reset', rateLimitData.resetTime);
+    
+    if (rateLimitData.count > maxRequests) {
+      return res.status(429).json({
+        error: 'Too many requests',
+        retryAfter: resetAfter,
+        message: \`You've exceeded the rate limit. Try again in \${resetAfter} seconds.\`
+      });
+    }
+    
+    next();
+  };
+};
+
+// Usage: Allow 10 requests per 5 minutes
+const limiter = createRateLimiter(10, 5 * 60 * 1000);
+app.use(limiter);`,
+        },
+        {
+          id: "ex-3-6",
+          title: "Conditional Middleware Chain",
+          description: "Apply middleware based on conditions",
+          difficulty: "Advanced",
+          task: `Create middleware that:
+1. Applies authentication only to routes starting with /api/protected
+2. Applies rate limiting to /api routes but not /public
+3. Applies logging to all routes
+4. Can be easily configured
+
+Create a flexible middleware system that routes to different validators based on content type.`,
+          hint: "Use req.path to check the route. Middleware stack can be conditional.",
+          solution: `// Route-specific middleware wrapper
+const ifPath = (pattern, middleware) => {
+  return (req, res, next) => {
+    if (req.path.startsWith(pattern)) {
+      return middleware(req, res, next);
+    }
+    next();
+  };
+};
+
+// Global logging (applies to all)
+app.use((req, res, next) => {
+  console.log(\`[\${new Date().toISOString()}] \${req.method} \${req.path}\`);
+  next();
+});
+
+// Rate limiting only for /api routes
+app.use(ifPath('/api', createRateLimiter(100, 60000)));
+
+// Authentication only for protected routes
+app.use(ifPath('/api/protected', authenticate));
+
+// Different validators based on route
+const handleValidation = (req, res, next) => {
+  if (req.path.startsWith('/api/users')) {
+    return userValidator(req, res, next);
+  }
+  if (req.path.startsWith('/api/products')) {
+    return productValidator(req, res, next);
+  }
+  next();
+};
+
+app.use(ifPath('/api', handleValidation));
+
+// Public routes (no auth required)
+app.get('/public/info', (req, res) => {
+  res.json({ message: 'Public data' });
+});
+
+// Protected API routes
+app.get('/api/protected/data', authenticate, (req, res) => {
+  res.json({ user: req.user, data: 'secret' });
+});`,
+        },
+        {
+          id: "ex-3-7",
+          title: "Custom Error Class & Error Middleware Integration",
+          description: "Create an organized error handling system",
+          difficulty: "Advanced",
+          task: `Create:
+1. Custom Error classes (ValidationError, NotFoundError, etc.)
+2. Middleware that catches and properly formats errors
+3. Async error wrapper to catch promise rejections
+4. Proper HTTP status codes for different error types`,
+          solution: `// Custom Error classes
+class AppError extends Error {
+  constructor(message, statusCode) {
+    super(message);
+    this.statusCode = statusCode;
+    Error.captureStackTrace(this, this.constructor);
+  }
+}
+
+class ValidationError extends AppError {
+  constructor(message) {
+    super(message, 400);
+    this.name = 'ValidationError';
+  }
+}
+
+class NotFoundError extends AppError {
+  constructor(resource) {
+    super(\`\${resource} not found\`, 404);
+    this.name = 'NotFoundError';
+  }
+}
+
+class UnauthorizedError extends AppError {
+  constructor(message = 'Unauthorized') {
+    super(message, 401);
+    this.name = 'UnauthorizedError';
+  }
+}
+
+// Async error wrapper
+const asyncHandler = (fn) => {
+  return (req, res, next) => {
+    Promise.resolve(fn(req, res, next)).catch(next);
+  };
+};
+
+// Error handling middleware
+app.use((err, req, res, next) => {
+  if (err instanceof AppError) {
+    return res.status(err.statusCode).json({
+      error: {
+        name: err.name,
+        message: err.message,
+        statusCode: err.statusCode
+      }
+    });
+  }
+  
+  // Unknown error
   res.status(500).json({
-    error: 'Internal Server Error',
-    message: process.env.NODE_ENV === 'development' ? err.message : 'Something went wrong'
+    error: {
+      message: 'Internal Server Error',
+      statusCode: 500
+    }
   });
-});`
-        }
-      ]
+});
+
+// Usage examples
+app.post('/users', asyncHandler(async (req, res, next) => {
+  if (!req.body.email) {
+    throw new ValidationError('Email is required');
+  }
+  
+  const user = await User.findOne({ email: req.body.email });
+  if (user) {
+    throw new ValidationError('Email already exists');
+  }
+  
+  res.json({ message: 'User created' });
+}));
+
+app.get('/users/:id', asyncHandler(async (req, res, next) => {
+  const user = await User.findById(req.params.id);
+  if (!user) {
+    throw new NotFoundError('User');
+  }
+  res.json(user);
+}));`,
+        },
+      ],
     },
 
     {
@@ -375,7 +1228,7 @@ app.use((err, req, res, next) => {
       objectives: [
         "Organize routes with Express Router",
         "Handle route parameters and query strings",
-        "Implement route validation"
+        "Implement route validation",
       ],
       lessons: [
         {
@@ -404,8 +1257,8 @@ module.exports = router;
 
 // In main app.js
 const userRoutes = require('./routes/users');
-app.use('/users', userRoutes);`
-          }
+app.use('/users', userRoutes);`,
+          },
         },
         {
           id: "route-parameters",
@@ -436,8 +1289,8 @@ app.get('/search', (req, res) => {
 app.get('/products/:category?', (req, res) => {
   const category = req.params.category || 'all';
   res.json({ category });
-});`
-          }
+});`,
+          },
         },
         {
           id: "route-validation",
@@ -466,9 +1319,9 @@ app.post('/users', validateUser, (req, res) => {
   const user = { id: Date.now(), ...req.body };
   users.push(user);
   res.status(201).json(user);
-});`
-          }
-        }
+});`,
+          },
+        },
       ],
       exercises: [
         {
@@ -536,9 +1389,9 @@ router.post('/:postId/comments', (req, res) => {
   res.status(201).json(comment);
 });
 
-module.exports = router;`
-        }
-      ]
+module.exports = router;`,
+        },
+      ],
     },
 
     {
@@ -548,7 +1401,7 @@ module.exports = router;`
       objectives: [
         "Understand template engines",
         "Set up EJS template engine",
-        "Create dynamic views"
+        "Create dynamic views",
       ],
       lessons: [
         {
@@ -558,9 +1411,9 @@ module.exports = router;`
           content: {
             paragraphs: [
               "Template engines enable you to use static template files in your application. At runtime, the template engine replaces variables in a template file with actual values, and transforms the template into an HTML file sent to the client.",
-              "Popular template engines: EJS, Pug, Handlebars"
-            ]
-          }
+              "Popular template engines: EJS, Pug, Handlebars",
+            ],
+          },
         },
         {
           id: "ejs-setup",
@@ -571,8 +1424,8 @@ module.exports = router;`
             steps: [
               {
                 text: "Install EJS:",
-                code: "npm install ejs"
-              }
+                code: "npm install ejs",
+              },
             ],
             code: `// Set EJS as template engine
 app.set('view engine', 'ejs');
@@ -585,8 +1438,8 @@ app.get('/', (req, res) => {
     message: 'Welcome to our website!',
     users: ['Alice', 'Bob', 'Charlie']
   });
-});`
-          }
+});`,
+          },
         },
         {
           id: "ejs-templates",
@@ -620,9 +1473,9 @@ app.get('/', (req, res) => {
     <!-- Include partials -->
     <%- include('partials/footer') %>
 </body>
-</html>`
-          }
-        }
+</html>`,
+          },
+        },
       ],
       exercises: [
         {
@@ -675,9 +1528,9 @@ Use the blog API from previous module as data source.`,
     </div>
 <% } else { %>
     <p>No posts yet. Be the first to write one!</p>
-<% } %>`
-        }
-      ]
+<% } %>`,
+        },
+      ],
     },
 
     {
@@ -687,7 +1540,7 @@ Use the blog API from previous module as data source.`,
       objectives: [
         "Connect to MongoDB with Mongoose",
         "Define schemas and models",
-        "Perform CRUD operations"
+        "Perform CRUD operations",
       ],
       lessons: [
         {
@@ -698,7 +1551,7 @@ Use the blog API from previous module as data source.`,
             steps: [
               {
                 text: "Install Mongoose:",
-                code: "npm install mongoose"
+                code: "npm install mongoose",
               },
               {
                 text: "Connect to MongoDB:",
@@ -713,10 +1566,10 @@ const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
   console.log('Connected to MongoDB');
-});`
-              }
-            ]
-          }
+});`,
+              },
+            ],
+          },
         },
         {
           id: "mongoose-schemas",
@@ -747,8 +1600,8 @@ db.once('open', function() {
   }
 });
 
-const User = mongoose.model('User', userSchema);`
-          }
+const User = mongoose.model('User', userSchema);`,
+          },
         },
         {
           id: "crud-operations",
@@ -812,9 +1665,9 @@ app.delete('/users/:id', async (req, res) => {
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
-});`
-          }
-        }
+});`,
+          },
+        },
       ],
       exercises: [
         {
@@ -860,9 +1713,9 @@ app.get('/tasks', async (req, res) => {
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
-});`
-        }
-      ]
+});`,
+        },
+      ],
     },
 
     {
@@ -872,7 +1725,7 @@ app.get('/tasks', async (req, res) => {
       objectives: [
         "Implement user authentication",
         "Use JWT for stateless authentication",
-        "Add security best practices"
+        "Add security best practices",
       ],
       lessons: [
         {
@@ -883,8 +1736,8 @@ app.get('/tasks', async (req, res) => {
             steps: [
               {
                 text: "Install JWT package:",
-                code: "npm install jsonwebtoken bcryptjs"
-              }
+                code: "npm install jsonwebtoken bcryptjs",
+              },
             ],
             code: `const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
@@ -955,8 +1808,8 @@ app.post('/login', async (req, res) => {
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
-});`
-          }
+});`,
+          },
         },
         {
           id: "auth-middleware",
@@ -989,9 +1842,9 @@ app.post('/login', async (req, res) => {
 // Protected route
 app.get('/profile', authMiddleware, (req, res) => {
   res.json({ user: req.user });
-});`
-          }
-        }
+});`,
+          },
+        },
       ],
       exercises: [
         {
@@ -1050,9 +1903,9 @@ app.put('/posts/:id', authMiddleware, async (req, res) => {
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
-});`
-        }
-      ]
+});`,
+        },
+      ],
     },
 
     {
@@ -1062,7 +1915,7 @@ app.put('/posts/:id', authMiddleware, async (req, res) => {
       objectives: [
         "Prepare app for production",
         "Environment configuration",
-        "Deploy to cloud platform"
+        "Deploy to cloud platform",
       ],
       lessons: [
         {
@@ -1091,8 +1944,8 @@ const JWT_SECRET = process.env.JWT_SECRET;
 mongoose.connect(MONGODB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true
-});`
-          }
+});`,
+          },
         },
         {
           id: "production-best-practices",
@@ -1105,9 +1958,9 @@ mongoose.connect(MONGODB_URI, {
               "Use helmet for security headers",
               "Implement rate limiting",
               "Add proper logging",
-              "Use process managers like PM2"
-            ]
-          }
+              "Use process managers like PM2",
+            ],
+          },
         },
         {
           id: "cors-helmet",
@@ -1117,8 +1970,8 @@ mongoose.connect(MONGODB_URI, {
             steps: [
               {
                 text: "Install security packages:",
-                code: "npm install cors helmet"
-              }
+                code: "npm install cors helmet",
+              },
             ],
             code: `const cors = require('cors');
 const helmet = require('helmet');
@@ -1136,9 +1989,9 @@ const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
   max: 100 // limit each IP to 100 requests per windowMs
 });
-app.use(limiter);`
-          }
-        }
+app.use(limiter);`,
+          },
+        },
       ],
       exercises: [
         {
@@ -1187,12 +2040,13 @@ app.use((err, req, res, next) => {
     error: err.message,
     stack: err.stack
   });
-});`
-        }
+});`,
+        },
       ],
       finalProject: {
         title: "Build a Complete Blog Platform",
-        description: "Combine all modules to build a full-stack blog application",
+        description:
+          "Combine all modules to build a full-stack blog application",
         requirements: [
           "User authentication and authorization",
           "CRUD operations for blog posts and comments",
@@ -1200,18 +2054,18 @@ app.use((err, req, res, next) => {
           "RESTful API with proper error handling",
           "EJS templates for frontend",
           "Production-ready configuration",
-          "Security best practices implemented"
+          "Security best practices implemented",
         ],
         bonus: [
           "Add file upload for post images",
           "Implement search functionality",
           "Add pagination for posts",
           "Create admin dashboard",
-          "Add social media sharing"
-        ]
-      }
-    }
-  ]
+          "Add social media sharing",
+        ],
+      },
+    },
+  ],
 };
 
 export default expressCourse;
