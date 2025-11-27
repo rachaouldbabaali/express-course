@@ -9,16 +9,11 @@ export const sampleUserProgress: UserProgress[] = [
     courseId: "node-and-express",
     completedModules: ["module-1", "module-2"],
     completedLessons: [
-      "what-is-node",
-      "setup-environment",
-      "first-server",
-      "express-intro",
-      "basic-express-app",
     ],
     completedExercises: ["ex-1-1", "ex-2-1"],
     quizScores: {
-      "module-1": 100,
-      "module-2": 80,
+      "module-1": 0,
+      "module-2": 0,
     },
     currentModule: "module-3",
     currentLesson: "middleware-concept",
@@ -40,19 +35,8 @@ export const sampleUserProgress: UserProgress[] = [
 // A convenience map of course -> module progress percentages (used by Sidebar mock)
 export const userProgressMap: Record<string, Record<string, number>> = {
   "git-and-github": {
-    "getting-started": 100,
-    "basic-commands": 75,
-    "branching-workflows": 25,
   },
   "node-and-express": {
-    "module-1": 100,
-    "module-2": 80,
-    "module-3": 40,
-    "module-4": 20,
-    "module-5": 0,
-    "module-6": 0,
-    "module-7": 0,
-    "module-8": 0,
   },
 };
 
