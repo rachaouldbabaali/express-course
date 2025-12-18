@@ -38,6 +38,8 @@ export const userProgressMap: Record<string, Record<string, number>> = {
   },
   "node-and-express": {
   },
+  "react-fun": {
+  },
 };
 
 export default sampleUserProgress;

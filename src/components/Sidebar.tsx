@@ -3,6 +3,7 @@ import { NavLink, useParams, useLocation, useNavigate } from "react-router-dom";
 import { courses } from "../data/courses";
 import { gitCourse } from "../data/gitCourse";
 import expressCourse from "../data/expressCourse";
+import reactCourse from "../data/reactCourse";
 import { userProgressMap } from "../data/userProgress";
 import { CourseContent, Module } from "../types/course";
 import Modal from "./Modal";
@@ -20,6 +21,8 @@ export default function Sidebar() {
   if (slug === gitCourse.slug) courseContent = gitCourse as CourseContent;
   else if (slug === expressCourse.slug)
     courseContent = expressCourse as CourseContent;
+  else if (slug === reactCourse.slug)
+    courseContent = reactCourse as CourseContent;
 
   const getProgressForModule = (moduleId: string) => {
     const current = slug ?? "";
@@ -66,6 +69,7 @@ export default function Sidebar() {
           let content: any = null;
           if (courseSlug === gitCourse.slug) content = gitCourse;
           else if (courseSlug === expressCourse.slug) content = expressCourse;
+          else if (courseSlug === reactCourse.slug) content = reactCourse;
 
           if (content && content.sections) {
             const map: Record<string, number> = {};
@@ -107,6 +111,7 @@ export default function Sidebar() {
           let content: any = null;
           if (courseSlug === gitCourse.slug) content = gitCourse;
           else if (courseSlug === expressCourse.slug) content = expressCourse;
+          else if (courseSlug === reactCourse.slug) content = reactCourse;
 
           if (content && content.sections) {
             const map: Record<string, number> = {};

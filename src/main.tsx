@@ -5,6 +5,7 @@ import App from "./App";
 import { courses } from "./data/courses";
 import gitCourse from "./data/gitCourse";
 import expressCourse from "./data/expressCourse";
+import reactCourse from "./data/reactCourse";
 import "./styles/index.css";
 
 // Use Vite's BASE_URL so the router works both locally ("/") and when
@@ -28,6 +29,7 @@ createRoot(document.getElementById("root")!).render(
       if (!slug) return null;
       if (slug === gitCourse.slug) return gitCourse as any;
       if (slug === expressCourse.slug) return expressCourse as any;
+      if (slug === reactCourse.slug) return reactCourse as any;
       return null;
     };
 

@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { courses } from "../data/courses";
 import { expressCourse } from "../data/expressCourse";
+import { reactCourse } from "../data/reactCourse";
 import { gitCourse } from "../data/gitCourse";
 import Sidebar from "../components/Sidebar";
 import CodeBlock from "../components/CodeBlock";
@@ -28,6 +29,8 @@ export default function CourseDetail() {
   if (slug === "git-and-github") courseContent = gitCourse as CourseContent;
   if (slug === "node-and-express")
     courseContent = expressCourse as CourseContent;
+  if (slug === "react-fundamentals")
+    courseContent = reactCourse as CourseContent;
 
   useEffect(() => {
     // Prefer an explicit items list if saved (newer format)

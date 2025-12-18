@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { courses } from "../data/courses";
 import { gitCourse } from "../data/gitCourse";
 import { expressCourse } from "../data/expressCourse";
+import { reactCourse } from "../data/reactCourse";
 import Sidebar from "../components/Sidebar";
 import CodeBlock from "../components/CodeBlock";
 
@@ -18,6 +19,8 @@ export default function CourseSection() {
       ? gitCourse.sections.find((s) => s.id === sectionId)
       : slug === expressCourse.slug
       ? (expressCourse.sections as any[]).find((s: any) => s.id === sectionId)
+      : slug === reactCourse.slug
+      ? (reactCourse.sections as any[]).find((s: any) => s.id === sectionId)
       : null;
 
   if (!section)
