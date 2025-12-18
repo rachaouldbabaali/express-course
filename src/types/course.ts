@@ -19,22 +19,67 @@ export type Course = {
   tags?: string[];
 };
 
+export type LessonContent = {
+  paragraphs?: string[];
+  keyPoints?: string[];
+  steps?: Array<{
+    text: string;
+    code?: string;
+    os?: string;
+    explanation?: string;
+  }>;
+  code?: string;
+  description?: string;
+  
+  // NEW: Theory-specific content
+  analogy?: {
+    title: string;
+    description: string;
+    stages?: Array<{
+      stage: string;
+      explanation: string;
+    }>;
+    scenarios?: Array<{
+      situation: string;
+      explanation: string;
+    }>;
+  };
+  
+  visualFlow?: string;
+  keyConcepts?: Array<{
+    term: string;
+    explanation: string;
+  }>;
+  
+  realWorldExamples?: string[];
+  comparison?: {
+    badPractice: string;
+    goodPractice: string;
+    analogy: string;
+  };
+  
+  jwtParts?: Array<{
+    part: string;
+    analogy: string;
+    contains: string;
+  }>;
+  
+  howItWorks?: string[];
+  checklist?: Array<{
+    item: string;
+    why: string;
+  }>;
+  
+  commonMistakes?: string[];
+  hashExample?: string;
+};
+
 export type Lesson = {
   id: string;
   title: string;
   type: 'theory' | 'practical' | 'example' | 'exercise' | 'quiz';
   duration?: string;
-  content?: {
-    paragraphs?: string[];
-    keyPoints?: string[];
-    steps?: Array<{
-      text: string;
-      code?: string;
-      os?: string;
-    }>;
-    code?: string;
-    description?: string;
-  };
+  content?: LessonContent;
 };
 
 export type Exercise = {
@@ -46,6 +91,7 @@ export type Exercise = {
   solution?: string;
   difficulty?: 'beginner' | 'intermediate' | 'advanced';
   estimatedTime?: string;
+  starterCode?: string;
 };
 
 export type QuizQuestion = {
@@ -81,6 +127,13 @@ export type Module = {
     url: string;
     type: 'documentation' | 'video' | 'article' | 'tool';
   }>;
+  // NEW: Module metadata
+  commonMistakes?: Array<{
+    mistake: string;
+    solution: string;
+  }>;
+  nextSteps?: string[];
+  testingYourAPI?: string[];
 };
 
 export type CourseContent = {
