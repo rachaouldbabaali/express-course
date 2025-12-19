@@ -64,7 +64,7 @@ export default function CourseDetail() {
           const completedIds: string[] = [];
           const values = Object.values(parsed);
           const allNumbers = values.every((v) => typeof v === "number");
-          
+
           if (!allNumbers) {
             Object.keys(parsed).forEach((k) => {
               const v = (parsed as any)[k];
@@ -181,8 +181,18 @@ export default function CourseDetail() {
         {content.keyPoints && (
           <div className="bg-blue-50 rounded-lg p-5 border border-blue-200">
             <h4 className="font-semibold text-blue-900 mb-3 flex items-center gap-2">
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              <svg
+                className="w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                />
               </svg>
               Key Points
             </h4>
@@ -201,16 +211,33 @@ export default function CourseDetail() {
         {content.keyConcepts && (
           <div className="bg-amber-50 rounded-lg p-5 border border-amber-200">
             <h4 className="font-semibold text-amber-900 mb-3 flex items-center gap-2">
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+              <svg
+                className="w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
+                />
               </svg>
               Key Concepts
             </h4>
             <div className="grid md:grid-cols-2 gap-3">
               {content.keyConcepts.map((concept: any, idx: number) => (
-                <div key={idx} className="bg-white rounded-lg p-3 border border-amber-100">
-                  <h5 className="font-medium text-amber-900 mb-1">{concept.term}</h5>
-                  <p className="text-amber-700 text-sm">{concept.explanation}</p>
+                <div
+                  key={idx}
+                  className="bg-white rounded-lg p-3 border border-amber-100"
+                >
+                  <h5 className="font-medium text-amber-900 mb-1">
+                    {concept.term}
+                  </h5>
+                  <p className="text-amber-700 text-sm">
+                    {concept.explanation}
+                  </p>
                 </div>
               ))}
             </div>
@@ -221,44 +248,72 @@ export default function CourseDetail() {
         {content.analogy && (
           <div className="bg-purple-50 rounded-lg p-5 border border-purple-200">
             <h4 className="font-semibold text-purple-900 mb-3 flex items-center gap-2">
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+              <svg
+                className="w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"
+                />
               </svg>
-              {content.analogy.title ? `Real-World Analogy: ${content.analogy.title}` : "Real-World Analogy"}
+              {content.analogy.title
+                ? `Real-World Analogy: ${content.analogy.title}`
+                : "Real-World Analogy"}
             </h4>
             {content.analogy.description && (
-              <p className="text-purple-800 mb-4">{content.analogy.description}</p>
+              <p className="text-purple-800 mb-4">
+                {content.analogy.description}
+              </p>
             )}
-            
+
             {content.analogy.scenarios && (
               <div className="space-y-3">
                 {content.analogy.scenarios.map((scenario: any, idx: number) => (
-                  <div key={idx} className="bg-white rounded-lg p-3 border border-purple-100">
+                  <div
+                    key={idx}
+                    className="bg-white rounded-lg p-3 border border-purple-100"
+                  >
                     <div className="flex items-start gap-3">
                       <span className="w-6 h-6 bg-purple-500 text-white rounded-full flex items-center justify-center text-sm font-medium flex-shrink-0">
                         {idx + 1}
                       </span>
                       <div>
-                        <h5 className="font-medium text-purple-900">{scenario.situation}</h5>
-                        <p className="text-purple-700 text-sm mt-1">{scenario.explanation}</p>
+                        <h5 className="font-medium text-purple-900">
+                          {scenario.situation}
+                        </h5>
+                        <p className="text-purple-700 text-sm mt-1">
+                          {scenario.explanation}
+                        </p>
                       </div>
                     </div>
                   </div>
                 ))}
               </div>
             )}
-            
+
             {content.analogy.stages && (
               <div className="space-y-3 mt-4">
                 {content.analogy.stages.map((stage: any, idx: number) => (
-                  <div key={idx} className="bg-white rounded-lg p-3 border border-purple-100">
+                  <div
+                    key={idx}
+                    className="bg-white rounded-lg p-3 border border-purple-100"
+                  >
                     <div className="flex items-start gap-3">
                       <span className="w-6 h-6 bg-purple-500 text-white rounded-full flex items-center justify-center text-sm font-medium flex-shrink-0">
                         {idx + 1}
                       </span>
                       <div>
-                        <h5 className="font-medium text-purple-900">{stage.stage}</h5>
-                        <p className="text-purple-700 text-sm mt-1">{stage.explanation}</p>
+                        <h5 className="font-medium text-purple-900">
+                          {stage.stage}
+                        </h5>
+                        <p className="text-purple-700 text-sm mt-1">
+                          {stage.explanation}
+                        </p>
                       </div>
                     </div>
                   </div>
@@ -272,19 +327,36 @@ export default function CourseDetail() {
         {content.checklist && (
           <div className="bg-emerald-50 rounded-lg p-5 border border-emerald-200">
             <h4 className="font-semibold text-emerald-900 mb-3 flex items-center gap-2">
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+              <svg
+                className="w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                />
               </svg>
               Security Checklist
             </h4>
             <div className="space-y-2">
               {content.checklist.map((item: any, idx: number) => (
-                <div key={idx} className="bg-white rounded-lg p-3 border border-emerald-100">
+                <div
+                  key={idx}
+                  className="bg-white rounded-lg p-3 border border-emerald-100"
+                >
                   <div className="flex items-start gap-2">
                     <span className="text-emerald-500 mt-0.5">✓</span>
                     <div>
-                      <p className="font-medium text-emerald-900">{item.item}</p>
-                      <p className="text-emerald-700 text-sm mt-1">{item.why}</p>
+                      <p className="font-medium text-emerald-900">
+                        {item.item}
+                      </p>
+                      <p className="text-emerald-700 text-sm mt-1">
+                        {item.why}
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -297,8 +369,18 @@ export default function CourseDetail() {
         {content.realWorldExamples && (
           <div className="bg-teal-50 rounded-lg p-5 border border-teal-200">
             <h4 className="font-semibold text-teal-900 mb-3 flex items-center gap-2">
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+              <svg
+                className="w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                />
               </svg>
               Real World Examples
             </h4>
@@ -317,16 +399,33 @@ export default function CourseDetail() {
         {content.jwtParts && (
           <div className="bg-indigo-50 rounded-lg p-5 border border-indigo-200">
             <h4 className="font-semibold text-indigo-900 mb-3 flex items-center gap-2">
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+              <svg
+                className="w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
+                />
               </svg>
               JWT Structure Explained
             </h4>
             <div className="grid md:grid-cols-3 gap-3">
               {content.jwtParts.map((part: any, idx: number) => (
-                <div key={idx} className="bg-white rounded-lg p-3 border border-indigo-100">
-                  <h5 className="font-medium text-indigo-900 mb-1">{part.part}</h5>
-                  <p className="text-indigo-700 text-xs mb-2 italic">{part.analogy}</p>
+                <div
+                  key={idx}
+                  className="bg-white rounded-lg p-3 border border-indigo-100"
+                >
+                  <h5 className="font-medium text-indigo-900 mb-1">
+                    {part.part}
+                  </h5>
+                  <p className="text-indigo-700 text-xs mb-2 italic">
+                    {part.analogy}
+                  </p>
                   <p className="text-indigo-600 text-sm">{part.contains}</p>
                 </div>
               ))}
@@ -335,19 +434,194 @@ export default function CourseDetail() {
         )}
 
         {/* Comparison */}
-        {content.comparison && (
+        {/* {content.comparison && (
           <div className="bg-cyan-50 rounded-lg p-5 border border-cyan-200">
-            <h4 className="font-semibold text-cyan-900 mb-3">Good vs Bad Practices</h4>
+            <h4 className="font-semibold text-cyan-900 mb-3">
+              Good vs Bad Practices
+            </h4>
             <div className="grid md:grid-cols-2 gap-4">
               <div className="bg-white rounded-lg p-4 border border-red-200">
-                <h5 className="font-medium text-red-700 mb-2">❌ {content.comparison.badPractice}</h5>
-                <p className="text-red-600 text-sm">{content.comparison.analogy}</p>
+                <h5 className="font-medium text-red-700 mb-2">
+                  ❌ {content.comparison.badPractice}
+                </h5>
+                <p className="text-red-600 text-sm">
+                  {content.comparison.analogy}
+                </p>
               </div>
               <div className="bg-white rounded-lg p-4 border border-green-200">
-                <h5 className="font-medium text-green-700 mb-2">✅ {content.comparison.goodPractice}</h5>
-                <p className="text-green-600 text-sm">{content.comparison.analogy}</p>
+                <h5 className="font-medium text-green-700 mb-2">
+                  ✅ {content.comparison.goodPractice}
+                </h5>
+                <p className="text-green-600 text-sm">
+                  {content.comparison.analogy}
+                </p>
               </div>
             </div>
+          </div>
+        )} */}
+
+        {/* Flexible Code Comparison */}
+        {content.comparison && (
+          <div className="bg-cyan-50 rounded-lg p-5 border border-cyan-200 mt-4">
+            <h4 className="font-semibold text-cyan-900 mb-3">
+              {content.comparison.title || "Code Comparison"}
+            </h4>
+
+            {/* Handle different comparison types */}
+            {(() => {
+              // Get all comparison keys except reserved ones
+              const comparisonKeys = Object.keys(content.comparison).filter(
+                (key) =>
+                  !["title", "description", "analogy", "explanation"].includes(
+                    key
+                  )
+              );
+
+              if (comparisonKeys.length === 0) return null;
+
+              // If it's a key-value comparison (like jsx: "...", javascript: "...")
+              return (
+                <>
+                  <div
+                    className={`grid ${
+                      comparisonKeys.length === 2
+                        ? "md:grid-cols-2"
+                        : "md:grid-cols-3"
+                    } gap-4`}
+                  >
+                    {comparisonKeys.map((key, index) => {
+                      // Color themes for each column
+                      const themes = [
+                        {
+                          border: "border-amber-200",
+                          text: "text-amber-700",
+                          dot: "bg-amber-400",
+                          bg: "bg-amber-50",
+                        },
+                        {
+                          border: "border-emerald-200",
+                          text: "text-emerald-700",
+                          dot: "bg-emerald-400",
+                          bg: "bg-emerald-50",
+                        },
+                        {
+                          border: "border-violet-200",
+                          text: "text-violet-700",
+                          dot: "bg-violet-400",
+                          bg: "bg-violet-50",
+                        },
+                        {
+                          border: "border-rose-200",
+                          text: "text-rose-700",
+                          dot: "bg-rose-400",
+                          bg: "bg-rose-50",
+                        },
+                      ];
+
+                      const theme = themes[index % themes.length];
+
+                      return (
+                        <div
+                          key={key}
+                          className={`bg-white rounded-lg p-4 border ${theme.border}`}
+                        >
+                          <div className="flex items-center gap-2 mb-3">
+                            <div
+                              className={`w-3 h-3 rounded-full ${theme.dot}`}
+                            ></div>
+                            <h5 className={`font-medium ${theme.text}`}>
+                              {/* Format key: functionComponent → Function Component */}
+                              {key
+                                .replace(/([A-Z])/g, " $1")
+                                .replace(/^./, (str) => str.toUpperCase())
+                                .replace(/(jsx|html|css)/gi, (match) =>
+                                  match.toUpperCase()
+                                )}
+                            </h5>
+                          </div>
+
+                          {/* Check if value is code or text */}
+                          {typeof content.comparison[key] === "string" &&
+                          content.comparison[key].includes("\n") ? (
+                            // It's code (has newlines)
+                            <pre className="bg-gray-900 text-gray-100 rounded p-3 text-sm overflow-x-auto">
+                              <code>{content.comparison[key]}</code>
+                            </pre>
+                          ) : (
+                            // It's text
+                            <div className={`${theme.bg} rounded p-3 text-sm`}>
+                              <p className="text-gray-800">
+                                {content.comparison[key]}
+                              </p>
+                            </div>
+                          )}
+                        </div>
+                      );
+                    })}
+                  </div>
+
+                  {/* Show analogy if it exists */}
+                  {content.comparison.analogy && (
+                    <div className="mt-4 p-3 bg-blue-50 rounded border border-blue-200">
+                      <p className="text-blue-800 text-sm">
+                        <span className="font-semibold">💭 Analogy:</span>{" "}
+                        {content.comparison.analogy}
+                      </p>
+                    </div>
+                  )}
+
+                  {/* Show explanation if it exists */}
+                  {content.comparison.explanation && (
+                    <div className="mt-3 p-3 bg-indigo-50 rounded border border-indigo-200">
+                      <p className="text-indigo-800 text-sm">
+                        <span className="font-semibold">📖 Explanation:</span>{" "}
+                        {content.comparison.explanation}
+                      </p>
+                    </div>
+                  )}
+                </>
+              );
+            })()}
+
+            {/* Additional content sections */}
+            {content.recommendation && (
+              <div className="mt-4 p-3 bg-green-50 rounded border border-green-200">
+                <p className="text-green-800 text-sm">
+                  <span className="font-semibold">💡 Recommendation:</span>{" "}
+                  {content.recommendation}
+                </p>
+              </div>
+            )}
+
+            {content.rules && Array.isArray(content.rules) && (
+              <div className="mt-4 p-3 bg-violet-50 rounded border border-violet-200">
+                <h5 className="font-medium text-violet-700 mb-2">
+                  📝 Rules to Remember:
+                </h5>
+                <ul className="space-y-1">
+                  {content.rules.map((rule: string, index: number) => (
+                    <li key={index} className="text-violet-800 text-sm">
+                      • {rule}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
+            {content.benefits && Array.isArray(content.benefits) && (
+              <div className="mt-4 p-3 bg-emerald-50 rounded border border-emerald-200">
+                <h5 className="font-medium text-emerald-700 mb-2">
+                  ✅ Benefits:
+                </h5>
+                <ul className="space-y-1">
+                  {content.benefits.map((benefit: string, index: number) => (
+                    <li key={index} className="text-emerald-800 text-sm">
+                      • {benefit}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
           </div>
         )}
 
@@ -355,8 +629,18 @@ export default function CourseDetail() {
         {content.howItWorks && (
           <div className="bg-cyan-50 rounded-lg p-5 border border-cyan-200">
             <h4 className="font-semibold text-cyan-900 mb-3 flex items-center gap-2">
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+              <svg
+                className="w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M13 10V3L4 14h7v7l9-11h-7z"
+                />
               </svg>
               How It Works
             </h4>
@@ -377,8 +661,18 @@ export default function CourseDetail() {
         {content.visualFlow && (
           <div className="bg-green-50 rounded-lg p-5 border border-green-200">
             <h4 className="font-semibold text-green-900 mb-3 flex items-center gap-2">
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z" />
+              <svg
+                className="w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z"
+                />
               </svg>
               Visual Flow
             </h4>
@@ -394,8 +688,18 @@ export default function CourseDetail() {
         {content.commonMistakes && (
           <div className="bg-red-50 rounded-lg p-5 border border-red-200">
             <h4 className="font-semibold text-red-900 mb-3 flex items-center gap-2">
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.928-.833-2.698 0L4.782 16.5c-.77.833.192 2.5 1.732 2.5z" />
+              <svg
+                className="w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.928-.833-2.698 0L4.782 16.5c-.77.833.192 2.5 1.732 2.5z"
+                />
               </svg>
               Common Mistakes to Avoid
             </h4>
@@ -425,17 +729,26 @@ export default function CourseDetail() {
         {/* Steps */}
         {content.steps && (
           <div className="space-y-3">
-            <h4 className="font-semibold text-slate-900 mb-3">Step-by-Step Guide</h4>
+            <h4 className="font-semibold text-slate-900 mb-3">
+              Step-by-Step Guide
+            </h4>
             {content.steps.map((step: any, stepIdx: number) => (
-              <div key={stepIdx} className="bg-white rounded-lg p-4 border border-slate-200">
+              <div
+                key={stepIdx}
+                className="bg-white rounded-lg p-4 border border-slate-200"
+              >
                 <div className="flex items-start gap-3">
                   <span className="w-8 h-8 bg-primary-500 text-white rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0">
                     {stepIdx + 1}
                   </span>
                   <div className="flex-1">
-                    <p className="text-slate-800 mb-2 font-medium">{step.text}</p>
+                    <p className="text-slate-800 mb-2 font-medium">
+                      {step.text}
+                    </p>
                     {step.explanation && (
-                      <p className="text-slate-600 text-sm mb-2">{step.explanation}</p>
+                      <p className="text-slate-600 text-sm mb-2">
+                        {step.explanation}
+                      </p>
                     )}
                     {step.code && <CodeBlock code={step.code} />}
                   </div>
@@ -709,7 +1022,10 @@ export default function CourseDetail() {
                   </h3>
                   <div className="space-y-4">
                     {module.commonMistakes.map((mistake: any, idx: number) => (
-                      <div key={idx} className="bg-red-50 rounded-lg p-4 border border-red-200">
+                      <div
+                        key={idx}
+                        className="bg-red-50 rounded-lg p-4 border border-red-200"
+                      >
                         <div className="flex items-start gap-3">
                           <span className="text-red-500 mt-1">❌</span>
                           <div>
@@ -816,7 +1132,10 @@ export default function CourseDetail() {
                   </h3>
                   <div className="grid md:grid-cols-2 gap-4">
                     {module.nextSteps.map((step: string, idx: number) => (
-                      <div key={idx} className="bg-blue-50 rounded-lg p-4 border border-blue-200">
+                      <div
+                        key={idx}
+                        className="bg-blue-50 rounded-lg p-4 border border-blue-200"
+                      >
                         <p className="text-blue-800">{step}</p>
                       </div>
                     ))}
@@ -913,4 +1232,4 @@ export default function CourseDetail() {
       </main>
     </div>
   );
-}  
+}
